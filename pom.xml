@@ -69,6 +69,68 @@
         <plugins>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jolokia</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.13.6</version>
+                <configuration combine.self="override">
+                    <autoPull>true</autoPull>
+                    <images>
+                        <image>
+                            <!-- Artifact Image-->
+                            <name>arjan/${project.artifactId}-dockerfile:${project.version}</name>
+                            <build>
+                                <from>tomcat:7-jre8</from>
+                                <assembly>
+                                    <descriptor>${basedir}/src/main/docker/web/docker-assembly.xml</descriptor>
+                                </assembly>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <cmd>catalina.sh run</cmd>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>jolokia.port:8080</port>
+                                </ports>
+                                <wait>
+                                    <!-- The plugin waits until this URL is reachable via HTTP ... -->
+                                    <url>http://${docker.host.address}:${jolokia.port}/</url>
+                                    <time>10000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
                 <groupId>com.github.klieber</groupId>
                 <artifactId>phantomjs-maven-plugin</artifactId>
                 <version>${phantomjs.plugin.version}</version>
