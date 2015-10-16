@@ -9,7 +9,7 @@
                 <include>nl.arjan.sandbox:cucumber-integration-test</include>
             </includes>
             <outputDirectory>.</outputDirectory>
-            <outputFileNameMapping>simple-webapp.war</outputFileNameMapping>
+            <outputFileNameMapping>cucumber-integration-test.war</outputFileNameMapping>
         </dependencySet>
     </dependencySets>
 </assembly>

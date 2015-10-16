@@ -90,8 +90,12 @@
                             <build>
                                 <from>tomcat:7-jre8</from>
                                 <assembly>
+                                    <basedir>/release</basedir>
                                     <descriptor>${basedir}/src/main/docker/web/docker-assembly.xml</descriptor>
                                 </assembly>
+                                <runCmds>
+                                    <run>cp /release/cucumber-integration-test.war ${CATALINA_HOME}/webapps/cucumber-integration-test.war</run>
+                                </runCmds>
                                 <ports>
                                     <port>8080</port>
                                 </ports>
@@ -103,9 +107,14 @@
                                 </ports>
                                 <wait>
                                     <!-- The plugin waits until this URL is reachable via HTTP ... -->
-                                    <url>http://${docker.host.address}:${jolokia.port}/</url>
-                                    <time>10000</time>
+                                    <url>http://${docker.host.address}:${jolokia.port}/cucumber-integration-test</url>
+                                    <time>50000</time>
                                 </wait>
+                                <log>
+                                    <prefix>web</prefix>
+                                    <color>cyan</color>
+                                </log>
+
                             </run>
                         </image>
                     </images>
