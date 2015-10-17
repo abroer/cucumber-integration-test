@@ -171,6 +171,11 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <systemPropertyVariables>
+                        <simpleWebUrl>http://${docker.host.address}:${jolokia.port}/cucumber-integration-test</simpleWebUrl>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
 
             <plugin>
