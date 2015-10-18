@@ -8,13 +8,5 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"pretty"})
-public class RunCukesTest {
-
-    @Test
-    public void mustfail() {
-        boolean expected = true;
-
-        boolean actual = false;
-        Assert.assertEquals(expected, actual);
-    }
+public class RunCukesTestIT {
 }

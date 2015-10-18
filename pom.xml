@@ -110,7 +110,6 @@
                                     <port>jolokia.port:8080</port>
                                 </ports>
                                 <wait>
-                                    <!-- The plugin waits until this URL is reachable via HTTP ... -->
                                     <url>http://${docker.host.address}:${jolokia.port}/cucumber-integration-test</url>
                                     <time>100000</time>
                                 </wait>
@@ -118,7 +117,6 @@
                                     <prefix>web</prefix>
                                     <color>cyan</color>
                                 </log>
-
                             </run>
                         </image>
                     </images>
@@ -174,7 +172,7 @@
                 </executions>
                 <configuration>
                     <systemPropertyVariables>
-                        <simpleWebUrl>http://${docker.host.address}:${tomcat.port}/cucumber-integration-test</simpleWebUrl>
+                        <simpleWebUrl>http://${docker.host.address}:${jolokia.port}/cucumber-integration-test</simpleWebUrl>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
