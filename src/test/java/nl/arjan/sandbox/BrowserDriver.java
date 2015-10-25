@@ -63,16 +63,12 @@ public class BrowserDriver {
         }
         if (driver == null) {
             try {
-                // if
-                // driver = new FirefoxDriver(new FirefoxProfile());
-                // else
 
                 String locationPhantomjs = getLocationPhantomJS();
                 final DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setJavascriptEnabled(true);
                 capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, locationPhantomjs);
 
-                //driver = new PhantomJSDriver(capabilities);
                 driver = new PhantomJSDriver(capabilities);
             } finally {
                 Runtime.getRuntime().addShutdownHook(
